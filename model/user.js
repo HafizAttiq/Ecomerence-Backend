@@ -7,7 +7,9 @@ var userSchema = new Schema({
     email: { type: String },
     password: { type: String },
     conformPassword: { type: String },
-    phoneNumber: { type: String }
+    phoneNumber: { type: String },
+    // image: {type: String},
+    // url: {type: String}
 
 });
 

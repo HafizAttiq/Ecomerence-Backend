@@ -1,5 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+  cloud_name: "dyhqdbb3u",
+  api_key: "713921627931967",
+  api_secret: "bRDxp6Nul97uD6eLL7o_aCEjm2w"
+});
 const app = express();
 const bodyParser = require("body-parser")
 const port = 3000;
