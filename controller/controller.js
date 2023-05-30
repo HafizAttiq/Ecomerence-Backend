@@ -44,14 +44,7 @@ exports.RegisterUser = async (req, res) => {
 };
 
 exports.imageUpload = async (req, res) => {
-//     const file = req.file;
-//   cloudinary.uploader.upload(file.buffer, (error, result) => {
-//     if (error) {
-//       res.status(500).json({ error: 'Upload failed' });
-//     } else {
-//       res.json({ url: result.secure_url });
-//     }
-//   });
+
 const file = req.file;
 try {
     const image = file.buffer.toString('base64');
