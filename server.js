@@ -24,20 +24,33 @@ app.use(cors({
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb+srv://majidalam13839:majid@cluster0.ra334no.mongodb.net/mydb", {
+// mongoose.connect("mongodb+srv://majidalam13839:majid@cluster0.ra334no.mongodb.net/mydb", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// // db.once('open', function () {
+// //   console.log('database is connected sucessfully');
+// // });
+
+// db.once("connected", () => {
+//   // show messsage when connected to database
+//   console.log("Database connected successfully");
+// });
+
+
+mongoose.connect('mongodb://0.0.0.0:27017/mydatabase', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function () {
-//   console.log('database is connected sucessfully');
-// });
-
-db.once("connected", () => {
-  // show messsage when connected to database
-  console.log("Database connected successfully");
+db.once('open', function () {
+  console.log('database is connected sucessfully');
 });
+
+
 app.use("/", routes);
 app.get("/", (req, res) => {
   res.send("Hello World!");
