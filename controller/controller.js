@@ -73,18 +73,18 @@ try {
 };
 
 
-var userStore = new store();
+// var userStore = new store();
 
 
-exports.mainbannerimg = async (req, res) => {
-    const file = req.file;
-    const index = req.body.index;
-    const image = file.buffer.toString('base64');
+// exports.mainbannerimg = async (req, res) => {
+//     const file = req.file;
+//     const index = req.body.index;
+//     const image = file.buffer.toString('base64');
   
-    try {
-      const result = await cloudinary.uploader.upload(`data:${file.mimetype};base64,${image}`, {
-        resource_type: 'auto'
-      });
+//     try {
+//       const result = await cloudinary.uploader.upload(`data:${file.mimetype};base64,${image}`, {
+//         resource_type: 'auto'
+//       });
   
     //   const userStore = await YourModel.findOne(); // Retrieve the document from the collection
   
@@ -109,23 +109,40 @@ exports.mainbannerimg = async (req, res) => {
     //   userStore.mainBanner.images[index].url = result.secure_url;
     // const user_store = await store.findOne({})
   
-      var userStore = new store({
-        mainBanner: {
-           images: [{ url: result.secure_url }]
-        },
-        rightBanner: {
-           images: []
-        }
-     });
+//       var userStore = new store({
+//         mainBanner: {
+//            images: [{ url: result.secure_url }]
+//         },
+//         rightBanner: {
+//            images: []
+//         }
+//      });
 
-     userStore.save().then(() => {
-        res.status(200).json({ message: 'Data saved successfully' });
-     })
+//      userStore.save().then(() => {
+//         res.status(200).json({ message: 'Data saved successfully' });
+//      })
   
-    //   res.json(userStore);
+//     //   res.json(userStore);
+//     } catch (error) {
+//       console.error('Failed to save data:', error);
+//       res.status(500).json({ error: 'Upload failed' });
+//     }
+//   };
+exports.mainbannerimg = async (req, res) => {
+    const file = req.file;
+    try {
+        const image = file.buffer.toString('base64');
+        const result = await cloudinary.uploader.upload(`data:${file.mimetype};base64,${image}`, {
+            resource_type: 'auto'
+        });
+        
+        const userStore = new store();
+        userStore.mainBanner.images.push({ url: result.secure_url });
+        await userStore.save();
+        
+        res.json({ success: true, url: result.secure_url });
     } catch (error) {
-      console.error('Failed to save data:', error);
-      res.status(500).json({ error: 'Upload failed' });
+        console.log(error);
+        res.status(500).json({ success: false, message: error.message });
     }
-  };
-  
+};
