@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var userStoreSchema = new Schema({
-   url:{ type : String},
+   userId:{ type : String},
 
    mainBanner: {
     images: [{

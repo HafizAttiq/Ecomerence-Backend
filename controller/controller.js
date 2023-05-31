@@ -65,20 +65,27 @@ try {
 }
 };
 
-
 const userStore = new store();
 exports.mainbannerimg = async (req, res) => {
+    console.log("req.body===>", req.body);
+    
     const file = req.file;
+    console.log("req.file===>", req.file)
     try {
+        let index = req.body.index;
         const image = file.buffer.toString('base64');
+        console.log("===========================================1111");
+
         const result = await cloudinary.uploader.upload(`data:${file.mimetype};base64,${image}`, {
             resource_type: 'auto'
         });
-        userStore.mainBanner.images.push({ url: result.secure_url });
+        console.log("===========================================", result);
+        userStore['mainBanner']['images'][index]['url'] = result.secure_url;
+        console.log("=======================userStore===>", userStore);
         userStore.save()
         
-      res.json({ url: result.secure_url });
+        return res.json(userStore);
     } catch (error) {
-      res.status(500).json({ error: 'Upload failed' });
+        return res.status(500).json({ error: 'Upload failed' });
     }
     };
