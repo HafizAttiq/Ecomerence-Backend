@@ -146,3 +146,22 @@ exports.mainbannerimg = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 };
+
+exports.rightbannerimg = async (req, res) =>{
+    const file = req.file;
+    try {
+        const image = file.buffer.toString('base64');
+        const result = await cloudinary.uploader.upload(`data:${file.mimetype};base64,${image}`, {
+            resource_type: 'auto'
+        });
+        
+        const userStore = new store();
+        userStore.rightBanner.images.push({ url: result.secure_url });
+        await userStore.save();
+        
+        res.json({ success: true, url: result.secure_url });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
