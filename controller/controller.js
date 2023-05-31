@@ -79,7 +79,8 @@ exports.mainbannerimg = async (req, res) => {
     try {
       const result = await cloudinary.uploader.upload(`data:${file.mimetype};base64,${image}`, {
         resource_type: 'auto'
-      });
+      });console.log("====>",result)
+      
   
     //   const userStore = await YourModel.findOne(); // Retrieve the document from the collection
   
@@ -114,7 +115,9 @@ exports.mainbannerimg = async (req, res) => {
      });
 
      userStore.save().then(() => {
-        res.status(200).json({ message: 'Data saved successfully' });
+        res.status(200).json({ message: 'Data saved successfully',data:result
+      });
+        
      })
   
     //   res.json(userStore);
