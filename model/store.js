@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
+
 var userStoreSchema = new Schema({
    userId:{ type : String},
 
