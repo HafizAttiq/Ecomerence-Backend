@@ -12,7 +12,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(cors({
-  origin: 'http://localhost:4200',
+  origin: 'http://localhost:57246',
   optionsSuccessStatus: 200
 }));
 app.use(bodyParser.urlencoded({ extended: false }));

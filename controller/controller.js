@@ -7,7 +7,7 @@ exports.login = async (req, res) => {
     await User.findOne({ email: email, password: password })
         .then(user => {
             if (!user) {
-                return req.status(401).json({ message: "Invalid User" })
+                return res.status(401).json({ message: "Invalid User" })
             };
             const token = jwt.sign({ userId: user._id, email: email }, "keyValue");
             res.status(200).json({
@@ -21,7 +21,7 @@ exports.login = async (req, res) => {
 exports.RegisterUser = async (req, res) => {
     try {
         const newUser = new User({
-            fristName: req.body.fristName,
+            fristName:req.body.fristName,
             Fathername: req.body.Fathername,
             email: req.body.email,
             password: req.body.password,
